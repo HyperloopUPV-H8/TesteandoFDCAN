@@ -56,13 +56,12 @@ unordered_map<Pin, size_t> SHM::pin_offsets{
  *              Communication-FDCAN
  ***********************************************/
 
-const in_addr_t fdcan_ip_adress = 0x7f000001; // 127.0.0.1
+const std::string fdcan_ip_adress= "127.0.0.1";// 127.0.0.1
 
 FDCAN::Instance FDCAN::instance1 = {
     .TX = PD1,
     .RX = PD0,
     .dlc = DLC::BYTES_64,
-    .rx_location = 0x00000040U,
     .fdcan_number = 1,
     
 };
