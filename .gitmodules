@@ -1,3 +1,6 @@
 [submodule "deps/ST-LIB"]
 	path = deps/ST-LIB
 	url = https://github.com/HyperloopUPV-H8/ST-LIB
+[submodule "deps/VirtualMCU"]
+	path = deps/VirtualMCU
+	url = https://github.com/HyperloopUPV-H8/VirtualMCU.git
