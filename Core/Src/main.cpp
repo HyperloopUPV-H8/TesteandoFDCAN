@@ -9,7 +9,8 @@
 
 
 void r_thread(int id) {
-   while (1) {
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    while (1) {
         FDCAN::Packet packet;
         std::cout << "Reading data" << endl;
         bool test = FDCAN::read(id, &packet);
@@ -19,7 +20,7 @@ void r_thread(int id) {
             std::cout << "Identifier: " << packet.identifier << endl;
             std::cout << "Data length: " << packet.data_length << endl;
         }
-        std::this_thread::sleep_for(std::chrono::milliseconds(100)); 
+        std::this_thread::sleep_for(std::chrono::seconds(1)); 
     }
 }
 
@@ -28,7 +29,7 @@ int main(void) {
     int id = FDCAN::inscribe(FDCAN::fdcan1); 
     STLIB::start();
     std::string data = "Hello2";
-    std::thread read_thread(r_thread,id);
+    //std::thread read_thread(r_thread,id);
     while (1) {
         bool test = FDCAN::transmit(id, 1, data.c_str(), FDCAN::DLC::BYTES_16);
         std::cout <<endl<< test << endl;
@@ -43,7 +44,7 @@ int main(void) {
         std::this_thread::sleep_for(std::chrono::seconds(1));
         STLIB::update();
     }
-    read_thread.join();
+    //read_thread.join();
 }
 
 void Error_Handler(void) {
