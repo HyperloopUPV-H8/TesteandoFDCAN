@@ -6,6 +6,9 @@
     {
       "name": "ST-LIB",
       "path": "../ST-LIB"
+    },
+    {
+      "path": ".."
     }
   ],
   "settings": {
