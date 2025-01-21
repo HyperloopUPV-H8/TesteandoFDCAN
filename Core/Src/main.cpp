@@ -8,7 +8,8 @@
 #include "ST-LIB.hpp"
 
 
-void r_thread(int id) {
+
+/*void r_thread(int id) {
     std::this_thread::sleep_for(std::chrono::seconds(1));
     while (1) {
         FDCAN::Packet packet;
@@ -23,9 +24,9 @@ void r_thread(int id) {
         std::this_thread::sleep_for(std::chrono::seconds(1)); 
     }
 }
-
+*/
 int main(void) {
-    SharedMemory::start("sim_tests","state_machine__tests");
+    SharedMemory::start("gpio__blinking_led","state_machine__blinking_led");
     int id = FDCAN::inscribe(FDCAN::fdcan1); 
     STLIB::start();
     //std::string data = "Hello2";
@@ -35,12 +36,15 @@ int main(void) {
         //std::cout <<endl<< test << endl;
         
         FDCAN::Packet packet;
-        bool test = FDCAN::read(id, &packet);
-        std::cout <<endl<< test << endl;
-        std::cout << packet.rx_data.data() << endl;
-        std::cout << packet.identifier << endl;
+        //bool test = FDCAN::read(id, &packet);
+        FDCAN::read(id, &packet);
+        for(uint8_t i = 0; i < packet.data_length; i++){
+            std::cout << /*uint16_t*/(packet.rx_data[i])<< " ";
+        }
+        
+        std::cout <<endl<<  packet.identifier << endl;
         std::cout << packet.data_length << endl;
-        std::cout<<endl<<test<<endl;
+        //std::cout<<endl<<test<<endl;
         
         std::this_thread::sleep_for(std::chrono::seconds(1));
         STLIB::update();
